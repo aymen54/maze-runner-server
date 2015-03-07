@@ -3,8 +3,8 @@ package de.zalando.mazerunner.domain;
 import com.google.common.collect.Lists;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
-import de.zalando.mazerunner.domain.Maze;
 
+import java.util.Arrays;
 import java.util.List;
 
 @ApiModel("Available mazes")
@@ -13,6 +13,10 @@ public class Mazes {
     private List<Maze> mazes = Lists.newArrayList();
 
     public Mazes() {
+    }
+
+    public Mazes(Maze ... mazes) {
+        this.mazes.addAll(Arrays.asList(mazes));
     }
 
     public List<Maze> getMazes() {

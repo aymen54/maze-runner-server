@@ -1,5 +1,6 @@
 package de.zalando.mazerunner.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.wordnik.swagger.annotations.ApiModel;
@@ -10,7 +11,7 @@ import java.util.List;
 @ApiModel("Maze")
 public class Maze {
     @ApiModelProperty(value = "Unique identifier", required = true)
-    private String id;
+    private String code;
 
     @ApiModelProperty(required = true)
     private int width;
@@ -19,6 +20,7 @@ public class Maze {
     private int height;
 
     @ApiModelProperty(value = "", required = true)
+    @JsonIgnore
     private String fields;
 
     public Maze() {
@@ -36,12 +38,12 @@ public class Maze {
         return Joiner.on("\n").join(lines);
     }
 
-    public String getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public int getWidth() {
