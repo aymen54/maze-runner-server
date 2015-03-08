@@ -13,9 +13,9 @@ import java.util.Set;
 
 @ApiModel("Maze")
 public class Maze {
-    public static final char WALL = '#';
-    public static final char EXIT = 'x';
-    public static final char WAY = '.';
+    private static final char WALL = '#';
+    private static final char EXIT = 'x';
+    private static final char WAY = '.';
 
     private static final Set<Character> VALID_TARGETS = Sets.newHashSet(WAY, EXIT);
     private static final Set<Character> INVALID_SOURCES = Sets.newHashSet(WALL, EXIT);

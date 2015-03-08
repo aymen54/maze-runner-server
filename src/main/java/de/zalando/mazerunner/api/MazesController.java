@@ -15,16 +15,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/mazes")
 public class MazesController {
-    public static final Logger LOG = LoggerFactory.getLogger(MazesController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MazesController.class);
 
     @Autowired
     private MazeService mazeService;
 
     public MazesController() { }
-
-    public MazesController(MazeService mazeService) {
-        this.mazeService = mazeService;
-    }
 
     @ApiOperation(value = "Returns available mazes")
     @ApiResponses(value = {
