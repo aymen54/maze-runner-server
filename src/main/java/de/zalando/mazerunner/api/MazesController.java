@@ -23,9 +23,6 @@ public class MazesController {
     public MazesController() { }
 
     @ApiOperation(value = "Returns available mazes")
-    @ApiResponses(value = {
-            @ApiResponse(code = 404, message = "Maze not found")
-    })
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     Mazes mazes() {
