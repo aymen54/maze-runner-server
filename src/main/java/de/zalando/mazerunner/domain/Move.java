@@ -6,10 +6,10 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @ApiModel("Move within the maze")
 public class Move {
-    @ApiModelProperty
+    @ApiModelProperty(required = true)
     private Coordinate from;
 
-    @ApiModelProperty
+    @ApiModelProperty(required = true)
     private Direction direction;
 
     public Move() { }

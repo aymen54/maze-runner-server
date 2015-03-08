@@ -6,10 +6,10 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 
 @ApiModel("Coordinate")
 public class Coordinate {
-    @ApiModelProperty
+    @ApiModelProperty(required = true)
     private int x;
 
-    @ApiModelProperty
+    @ApiModelProperty(required = true)
     private int y;
 
     public Coordinate() { }
