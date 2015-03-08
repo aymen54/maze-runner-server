@@ -29,9 +29,7 @@ public class MazesController {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     Mazes mazes() {
-        LOG.info("");
-
-        return mazeService.findAll();
+        return mazeService.getAll();
     }
 
     @ApiOperation(value = "Returns the coordinate of the start position")
@@ -43,11 +41,13 @@ public class MazesController {
     Coordinate startPosition(@ApiParam(value = "maze code", required = true) @PathVariable(value = "code") final String code) {
         Optional<Maze> maze = mazeService.get(code);
 
-        if (maze.isPresent()) {
-            return maze.get().getStart();
+        if (!maze.isPresent()) {
+            LOG.warn("Maze [{}] not found!", code);
+
+            throw new ResourceNotFoundException();
         }
 
-        throw new ResourceNotFoundException();
+        return maze.get().getStart();
     }
 
     @ApiOperation(value = "Validates whether the given move is valid")
@@ -74,7 +74,7 @@ public class MazesController {
         if (!m.validateMove(move)) {
             LOG.info("Invalid move! [{}]", move);
 
-            throw new InvalidMoveException();
+            throw new InvalidMoveException("Invalid move!");
         }
 
         return m.move(move);

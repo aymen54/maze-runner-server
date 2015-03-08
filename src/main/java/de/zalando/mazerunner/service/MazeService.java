@@ -13,14 +13,13 @@ public class MazeService {
     @Autowired
     private Mazes mazes;
 
-    public MazeService() {
-    }
+    public MazeService() { }
 
     public void setMazes(final Mazes mazes) {
         this.mazes = mazes;
     }
 
-    public Mazes findAll() {
+    public Mazes getAll() {
         return mazes;
     }
 

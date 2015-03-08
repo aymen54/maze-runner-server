@@ -55,33 +55,33 @@ public class MazesControllerTest {
 
     @Test
     public void shouldHideMazeFields() throws Exception {
-        when(mazeServiceMock.findAll()).thenReturn(new Mazes(maze));
+        when(mazeServiceMock.getAll()).thenReturn(new Mazes(maze));
 
         mockMvc.perform(get("/mazes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.mazes", hasSize(1)))
                 .andExpect(jsonPath("$.mazes[0]", not(hasKey("fields"))));
 
-        verify(mazeServiceMock, times(1)).findAll();
+        verify(mazeServiceMock, times(1)).getAll();
         verifyNoMoreInteractions(mazeServiceMock);
     }
 
     @Test
     public void shouldHideMazeStartPosition() throws Exception {
-        when(mazeServiceMock.findAll()).thenReturn(new Mazes(maze));
+        when(mazeServiceMock.getAll()).thenReturn(new Mazes(maze));
 
         mockMvc.perform(get("/mazes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.mazes", hasSize(1)))
                 .andExpect(jsonPath("$.mazes[0]", not(hasKey("start"))));
 
-        verify(mazeServiceMock, times(1)).findAll();
+        verify(mazeServiceMock, times(1)).getAll();
         verifyNoMoreInteractions(mazeServiceMock);
     }
 
     @Test
     public void shouldProvideValuesForBasicMazeProperties() throws Exception {
-        when(mazeServiceMock.findAll()).thenReturn(new Mazes(maze));
+        when(mazeServiceMock.getAll()).thenReturn(new Mazes(maze));
 
         mockMvc.perform(get("/mazes"))
                 .andExpect(status().isOk())
@@ -90,7 +90,7 @@ public class MazesControllerTest {
                 .andExpect(jsonPath("$.mazes[0].width", is(3)))
                 .andExpect(jsonPath("$.mazes[0].height", is(3)));
 
-        verify(mazeServiceMock, times(1)).findAll();
+        verify(mazeServiceMock, times(1)).getAll();
         verifyNoMoreInteractions(mazeServiceMock);
     }
 
