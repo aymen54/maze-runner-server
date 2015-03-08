@@ -25,4 +25,144 @@ public class MazeTest {
 
         assertThat(maze.getStart(), is(new Coordinate(2, 1)));
     }
+
+    @Test
+    public void shouldAllowMovingFromOneWayToAnotherWay() {
+        Maze maze = new Maze();
+        maze.setWidth(2);
+        maze.setHeight(1);
+        maze.setFields("..");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.EAST);
+
+        assertThat(maze.validateMove(move), is(true));
+    }
+
+    @Test
+    public void shouldAllowMovingFromStartToExit() {
+        Maze maze = new Maze();
+        maze.setWidth(2);
+        maze.setHeight(1);
+        maze.setFields("@x");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.EAST);
+
+        assertThat(maze.validateMove(move), is(true));
+    }
+
+    @Test
+    public void shouldDisallowMovingToWalls() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(2);
+        maze.setFields("#.");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 1));
+        move.setDirection(Direction.NORTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovingFromWallToAnywhere() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(2);
+        maze.setFields("#.");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovingFromExitToAnywhere() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(2);
+        maze.setFields("x.");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovesFromANonExistingVerticalPosition() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(1);
+        maze.setFields(".");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 1));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovesFromANonExistingHorizontalPosition() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(1);
+        maze.setFields(".");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(1, 0));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovesToANonExistingPosition() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(1);
+        maze.setFields(".");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovesFromAnInvalidPosition() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(1);
+        maze.setFields(".");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(-1, -1));
+        move.setDirection(Direction.SOUTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
+
+    @Test
+    public void shouldDisallowMovesToAnInvalidPosition() {
+        Maze maze = new Maze();
+        maze.setWidth(1);
+        maze.setHeight(1);
+        maze.setFields(".");
+
+        Move move = new Move();
+        move.setFrom(new Coordinate(0, 0));
+        move.setDirection(Direction.NORTH);
+
+        assertThat(maze.validateMove(move), is(false));
+    }
 }

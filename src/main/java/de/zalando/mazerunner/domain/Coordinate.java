@@ -19,6 +19,28 @@ public class Coordinate {
         this.y = y;
     }
 
+    public Coordinate move(Direction direction) {
+        int x = this.x;
+        int y = this.y;
+
+        switch(direction) {
+            case WEST:
+                x--;
+                break;
+            case EAST:
+                x++;
+                break;
+            case NORTH:
+                y--;
+                break;
+            case SOUTH:
+                y++;
+                break;
+        }
+
+        return new Coordinate(x, y);
+    }
+
     public int getX() {
         return x;
     }
