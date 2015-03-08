@@ -20,7 +20,7 @@ public class SwaggerConfig {
 
     @Bean
     public SwaggerSpringMvcPlugin customImplementation() {
-        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig).apiInfo(apiInfo()).includePatterns("/requests");
+        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig).apiInfo(apiInfo()).includePatterns("/mazes.*");
     }
 
     private ApiInfo apiInfo() {

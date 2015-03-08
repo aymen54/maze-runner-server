@@ -26,7 +26,7 @@ public class Main {
         maze.setCode("maze-1");
         maze.setWidth(3);
         maze.setHeight(3);
-        maze.setFields("#.##.#...");
+        maze.setFields("#@##.#...");
 
         mazes.getMazes().add(maze);
 

@@ -27,6 +27,16 @@ public class Maze {
 
     }
 
+    @JsonIgnore
+    public Coordinate getStart() {
+        int idx = fields.indexOf('@');
+
+        int x = idx % width;
+        int y = idx / height;
+
+        return new Coordinate(x, y);
+    }
+
     @Override
     public String toString() {
         List<String> lines = Lists.newArrayList();
