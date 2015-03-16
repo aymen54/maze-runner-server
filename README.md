@@ -10,13 +10,19 @@ Write a program, that will interact as a client with the provided server to find
 Your program should take two command line parameters `code` (maze code) and `url` (URL to maze service) and print the path.
 
 Remember to create a "production ready" application. Clients should make use of:
+
 - logging,
 - correct exception handling,
 - unit tests.
 
 ### Notes
 - It is guaranteed that the maze contains one starting position and one exit, respectively.
-- The maze consists of the following characters: '.' - field, '#' - wall, '@' - starting position, 'x' - exit.
+- The maze consists of the following characters:
+  - `.` field
+  - `#` wall
+  - `@` starting position
+  - `x` exit
+
 - You should implement a REST API client, which will query the provided service and print a path, which leads from starting position to the exit.
 - The REST API Swagger documentation is available at `/swagger-ui`, i.e. `http://localhost:8080/swagger-ui`.
 
@@ -54,10 +60,12 @@ Returns the coordinate of the start position. Coordinates start at the upper lef
 The bottom-right corner has the coordinates (width - 1, height - 1).
 
 **Response:**
+
 - `200 OK`
 - `404 Not found`
 
 **Response body:**
+
 ```
 {
     "x": 1,
@@ -65,8 +73,8 @@ The bottom-right corner has the coordinates (width - 1, height - 1).
 }
 
 ```
-### `POST /mazes/{code}/position`
 
+### `POST /mazes/{code}/position`
 When a client tries to move it has to give its current coordinates, and the direction, where it wants to go to.
 The service checks whether the given coordinate is valid one. The only valid originator coordinate is a way
 or starting position. This check is important otherwise the clients could map the maze by brute force.
@@ -75,6 +83,7 @@ In case the originator coordinate is invalid the maze service returns `418 I'm a
 The directions can be: `NORTH`, `WEST`, `SOUTH`, `EAST`.
 
 **Request body:**
+
 ```
 {
     "from": {
@@ -86,11 +95,13 @@ The directions can be: `NORTH`, `WEST`, `SOUTH`, `EAST`.
 ```
 
 **Response:**
+
 - `200 OK`
 - `404 Not found`, if the maze is not found
-- `418 I'm a teapot` - in case the move is not valid (RFC 2324)
+- `418 I'm a teapot`, in case the move is not valid (RFC 2324)
 
-** Response body (in case of `200 OK`):**
+**Response body (in case of `200 OK`):**
+
 ```
 {
     "position": {
@@ -102,9 +113,8 @@ The directions can be: `NORTH`, `WEST`, `SOUTH`, `EAST`.
 ```
 
 ## Running the server
-
 Clone the project and start the Spring Boot application: `mvn clean spring-boot:run`.
-The server is available at `http://localhost:8080`. A Swagger documentation of the REST API is hosted at `http://localhost:8080/swagger-ui`.
+The server is available at http://localhost:8080. A Swagger documentation of the REST API is hosted at http://localhost:8080/swagger-ui.
 
 You can also run the application via Docker:
 
@@ -114,4 +124,4 @@ docker build -t maze-runner:1.0 .
 docker run -it -p 8080:8080 maze-runner:1.0
 ```
 
-After running the application you can retrieve the available mazes at: `http://localhost:8080/mazes`.
+After running the application you can retrieve the available mazes at http://localhost:8080/mazes.
