@@ -15,7 +15,7 @@ public class Mazes {
     public Mazes() {
     }
 
-    public Mazes(Maze ... mazes) {
+    public Mazes(final Maze ... mazes) {
         this.mazes.addAll(Arrays.asList(mazes));
     }
 
@@ -23,7 +23,7 @@ public class Mazes {
         return mazes;
     }
 
-    public void setMazes(List<Maze> mazes) {
+    public void setMazes(final List<Maze> mazes) {
         this.mazes = mazes;
     }
 }

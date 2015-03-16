@@ -22,21 +22,24 @@ public class MazesController {
 
     public MazesController() { }
 
-    @ApiOperation(value = "Returns available mazes")
+    @ApiOperation(value = "Lists mazes with their dimensions")
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     Mazes mazes() {
         return mazeService.getAll();
     }
 
-    @ApiOperation(value = "Returns the coordinate of the start position")
+    @ApiOperation(value = "Returns the coordinate of the start position",
+                  notes = "Coordinates start at the upper left corner with indices starting at 0. " +
+                          "The bottom-right corner has the coordinates (width - 1, height - 1).")
     @ApiResponses(value = {
             @ApiResponse(code = 404, message = "Maze not found")
     })
     @RequestMapping(value = "{code}/position/start", method = RequestMethod.GET)
     @ResponseBody
-    Coordinate startPosition(@ApiParam(value = "maze code", required = true) @PathVariable(value = "code") final String code) {
-        Optional<Maze> maze = mazeService.get(code);
+    Coordinate startPosition(@ApiParam(value = "maze code", required = true)
+                             @PathVariable(value = "code") final String code) {
+        final Optional<Maze> maze = mazeService.get(code);
 
         if (!maze.isPresent()) {
             LOG.warn("Maze [{}] not found!", code);
@@ -47,7 +50,10 @@ public class MazesController {
         return maze.get().getStart();
     }
 
-    @ApiOperation(value = "Validates whether the given move is valid")
+    @ApiOperation(value = "Validates whether the given move is valid or not",
+                  notes = "The only valid originator coordinate is a way or starting position. " +
+                          "In case the originator coordinate is invalid the maze service returns \"418 I'm a teapot\".\n" +
+                          "The directions can be: NORTH, WEST, SOUTH, EAST.")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Valid move"),
             @ApiResponse(code = 404, message = "Maze not found"),
@@ -55,9 +61,10 @@ public class MazesController {
     })
     @RequestMapping(value = "{code}/position", method = RequestMethod.POST)
     @ResponseBody
-    MoveResult validatePosition(@ApiParam(value = "maze code", required = true) @PathVariable(value = "code") final String code,
-                          @RequestBody final Move move) {
-        Optional<Maze> maze = mazeService.get(code);
+    MoveResult validatePosition(@ApiParam(value = "maze code", required = true)
+                                @PathVariable(value = "code") final String code,
+                                @RequestBody final Move move) {
+        final Optional<Maze> maze = mazeService.get(code);
 
         if (!maze.isPresent()) {
             LOG.warn("Maze [{}] not found!", code);
@@ -67,9 +74,9 @@ public class MazesController {
 
         LOG.info("Received move: [{}] for maze [{}]", move, code);
 
-        Maze m = maze.get();
+        final Maze m = maze.get();
         if (!m.validateMove(move)) {
-            LOG.info("Invalid move! [{}]", move);
+            LOG.info("Invalid move! [{}] for maze [{}]", move, code);
 
             throw new InvalidMoveException("Invalid move!");
         }

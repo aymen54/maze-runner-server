@@ -11,6 +11,11 @@
     <groupId>de.zalando</groupId>
     <artifactId>maze-runner-server</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Maze Runner Server</name>
+
+    <properties>
+        <swaggerui.version>2.1.8-M1</swaggerui.version>
+    </properties>
 
     <repositories>
         <repository>
@@ -39,14 +44,28 @@
         <dependency>
             <groupId>com.mangofactory</groupId>
             <artifactId>swagger-springmvc</artifactId>
-            <version>0.8.8</version>
+            <version>0.9.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- Since version 2.1.0 swagger-ui is able to read a path-parameter as base-url for swagger-api-doc-endpoint.
+         All previous versions have the base url hardcoded to http://petstore.swagger.wordnik.com/api/api-docs
+         TODO: Update to non stable version of 2.1.x as soon as it's available. -->
         <dependency>
-            <groupId>org.ajar</groupId>
-            <artifactId>swagger-spring-mvc-ui</artifactId>
-            <version>0.2</version>
-            <scope>compile</scope>
+            <groupId>org.webjars</groupId>
+            <artifactId>swagger-ui</artifactId>
+            <version>${swaggerui.version}</version>
         </dependency>
+
         <!-- http://stackoverflow.com/a/28534604/283084 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -108,6 +127,25 @@
         <finalName>${project.artifactId}</finalName>
 
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>write-project-properties</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>
+                                ${project.build.outputDirectory}/build.properties
+                            </outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Java8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -19,7 +19,7 @@ public class Move {
         return MoreObjects.toStringHelper(this).add("from", from).add("direction", direction).toString();
     }
 
-    public void setFrom(Coordinate from) {
+    public void setFrom(final Coordinate from) {
         this.from = from;
     }
 
@@ -27,7 +27,7 @@ public class Move {
         return from;
     }
 
-    public void setDirection(Direction direction) {
+    public void setDirection(final Direction direction) {
         this.direction = direction;
     }
 
