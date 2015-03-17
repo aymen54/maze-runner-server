@@ -43,6 +43,9 @@ The starting position located at `(1,0)`, the exit at `(2,2)`.
 
 Lists mazes with their dimensions.
 
+**Request:**
+`GET /mazes`
+
 **Response body:**
 ```
 [
@@ -57,6 +60,9 @@ Lists mazes with their dimensions.
 ### `GET /mazes/{code}/position/start`
 Returns the coordinate of the start position. Coordinates start at the upper-left corner with indices starting at `0`.
 The bottom-right corner has the coordinates `(width-1, height-1)`.
+
+**Request:**
+`GET /mazes/maze-1/position/start`
 
 **Response:**
 
@@ -79,6 +85,9 @@ or starting position. This check is important otherwise the clients could map th
 
 In case the originator coordinate is invalid the maze service returns `418 I'm a teapot`.
 The directions can be: `NORTH`, `WEST`, `SOUTH`, `EAST`.
+
+**Request:**
+`POST /mazes/maze-1/position`
 
 **Request body:**
 
@@ -124,3 +133,4 @@ docker run -it -p 8080:8080 maze-runner:1.0
 ```
 
 After running the application you can retrieve the available mazes at [http://localhost:8080/mazes](http://localhost:8080/mazes).
+
