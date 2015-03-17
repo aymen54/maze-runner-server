@@ -1,4 +1,4 @@
-# Maze runner server
+# Maze runner
 
 ## Task
 
@@ -6,24 +6,23 @@ You wake up in a dark place without remembering what happened to you. You start 
 The *you* in this task is the maze runner client, which tries to find the exit. The only way to know where it can go next is the maze runner service.
 The service returns information about moves within the maze for adjacent squares. With this information the client is able to find its way out of the maze.
 
-Write a program, that will interact as a client with the provided server to find a path from starting position to the exit of the maze.
-Your program should take two command line parameters `code` (maze code) and `url` (URL to maze service) and print the path.
-
-Remember to create a "production ready" application. Clients should make use of:
-
-- logging,
-- correct exception handling,
-- unit tests.
+Write a program (in the language of your choice), that will interact as a REST API client with the provided server in order to find a path from the starting position of the maze to its exit.
+Your program should take two command line parameters: `code` (maze code) and `url` (URL to maze service) and print the path.
 
 ### Notes
 - It is guaranteed that the maze contains one starting position and one exit, respectively.
+
 - The maze consists of the following characters:
   - `.` field
   - `#` wall
   - `@` starting position
   - `x` exit
 
-- You should implement a REST API client, which will query the provided service and print a path, which leads from starting position to the exit.
+- Remember to create a "production ready" application. Clients should make use of:
+  - logging,
+  - correct exception handling,
+  - unit tests.
+
 - The REST API Swagger documentation is available at `/swagger-ui`, i.e. `http://localhost:8080/swagger-ui`.
 
 ## Service
@@ -31,8 +30,8 @@ Remember to create a "production ready" application. Clients should make use of:
 The maze runner service communicates with the clients over a REST interface.
 The server is stateless, its only concern is giving information about the maze. The server supports the following endpoints:
 
-The responses for available endpoints are assuming, that the server hosts `maze-1` of size 3x3.
-The starting position located at `(1, 0)`, the exit at `(2, 2)`.
+The example responses for available endpoints are assuming, that the server hosts `maze-1` of size `3x3`.
+The starting position located at `(1,0)`, the exit at `(2,2)`.
 
 ```
 #@#
@@ -56,8 +55,8 @@ Lists mazes with their dimensions.
 ```
 
 ### `GET /mazes/{code}/position/start`
-Returns the coordinate of the start position. Coordinates start at the upper left corner with indices starting at 0.
-The bottom-right corner has the coordinates (width - 1, height - 1).
+Returns the coordinate of the start position. Coordinates start at the upper-left corner with indices starting at `0`.
+The bottom-right corner has the coordinates `(width-1, height-1)`.
 
 **Response:**
 
@@ -71,7 +70,6 @@ The bottom-right corner has the coordinates (width - 1, height - 1).
     "x": 1,
     "y": 0
 }
-
 ```
 
 ### `POST /mazes/{code}/position`
@@ -114,7 +112,8 @@ The directions can be: `NORTH`, `WEST`, `SOUTH`, `EAST`.
 
 ## Running the server
 Clone the project and start the Spring Boot application: `mvn clean spring-boot:run`.
-The server is available at http://localhost:8080. A Swagger documentation of the REST API is hosted at http://localhost:8080/swagger-ui.
+The server is available at [http://localhost:8080](http://localhost:8080).
+A Swagger documentation of the REST API is hosted at [http://localhost:8080/swagger-ui](http://localhost:8080/swagger-ui).
 
 You can also run the application via Docker:
 
@@ -124,4 +123,4 @@ docker build -t maze-runner:1.0 .
 docker run -it -p 8080:8080 maze-runner:1.0
 ```
 
-After running the application you can retrieve the available mazes at http://localhost:8080/mazes.
+After running the application you can retrieve the available mazes at [http://localhost:8080/mazes](http://localhost:8080/mazes).
