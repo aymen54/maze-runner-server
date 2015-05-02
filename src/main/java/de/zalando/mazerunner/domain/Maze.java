@@ -42,7 +42,7 @@ public class Maze {
         int idx = fields.indexOf('@');
 
         int x = idx % width;
-        int y = idx / height;
+        int y = (idx - x) / width;
 
         return new Coordinate(x, y);
     }

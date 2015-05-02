@@ -27,6 +27,27 @@ public class MazeTest {
     }
 
     @Test
+    public void canComputeAllPossibleStartingPositions() {
+        Maze maze = new Maze();
+        maze.setWidth(8);
+        maze.setHeight(3);
+
+        String s = "########" +
+                   "#......#" +
+                   "########";
+
+        for (int i = 0; i < maze.getWidth(); i++) {
+            for (int j = 0; j < maze.getHeight(); j++) {
+                char chars[] = s.toCharArray();
+                chars[i + j * maze.getWidth()] = '@';
+
+                maze.setFields(new String(chars));
+                assertThat(maze.getStart(), is(new Coordinate(i, j)));
+            }
+        }
+    }
+
+    @Test
     public void shouldAllowMovingFromOneWayToAnotherWay() {
         Maze maze = new Maze();
         maze.setWidth(2);

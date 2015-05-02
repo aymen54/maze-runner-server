@@ -38,6 +38,19 @@ public class Main {
 
         mazes.getMazes().add(second);
 
+        Maze third = new Maze();
+        third.setCode("maze-3");
+        third.setWidth(8);
+        third.setHeight(6);
+        third.setFields("#x######" +
+                        "#.#....#" +
+                        "#.####@#" +
+                        "#....#.#" +
+                        "#..#...#" +
+                        "########");
+
+        mazes.getMazes().add(third);
+
         return mazes;
     }
 
